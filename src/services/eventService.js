@@ -1,28 +1,38 @@
-export const getEvents = () =>
-  fetch("http://localhost:5000/events")
-    .then((res) => res.json());
+const API_URL = "https://youth-union-backend.onrender.com/events";
 
-export const createEvent = (event) =>
-  fetch("http://localhost:5000/events", {
+// GET
+export const getEvents = async () => {
+  const res = await fetch(API_URL);
+  return await res.json();
+};
+
+// CREATE
+export const createEvent = async (event) => {
+  const res = await fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  }).then((res) => res.json());
+  });
+  return await res.json();
+};
 
-export const deleteEvent = (id) =>
-  fetch(`http://localhost:5000/events/${id}`, {
+// DELETE
+export const deleteEvent = async (id) => {
+  await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
+};
 
-export const updateEvent = (id, data) => {
-  return fetch(`http://localhost:5000/events/${id}`, {
+// UPDATE
+export const updateEvent = async (id, data) => {
+  const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then((res) => res.json());
+  });
+  return await res.json();
 };
-
